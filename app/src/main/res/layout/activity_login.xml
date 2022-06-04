@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000000"
-    tools:context=".LoginActivity">
+    tools:context=".MainActivity">
 
 
     <LinearLayout
@@ -26,8 +26,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="top"
-                android:layout_weight="100"
-                android:scaleType="fitStart"
+                android:layout_weight="40"
+                android:scaleType="fitCenter"
                 app:srcCompat="@drawable/nascarlogo" />
 
             <TextView
@@ -69,6 +69,7 @@
                 android:background="@drawable/rounded_field"/>
 
             <Button
+                android:id="@+id/signin_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -89,12 +90,13 @@
             android:layout_weight="100">
 
             <Button
+                android:id="@+id/signup_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="end"
+                android:layout_gravity="bottom"
                 android:text="@string/signUp"
                 android:fontFamily="@font/f1regular"
-                android:textSize="14sp"
+                android:textSize="18sp"
                 android:background="#00FFFFFF" />
 
          </LinearLayout>
