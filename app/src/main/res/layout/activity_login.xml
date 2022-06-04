@@ -58,7 +58,7 @@
                 android:layout_height="50dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="100dp"
-                android:background="@color/white"/>
+                android:background="@drawable/rounded_field" />
 
             <EditText
                 android:id="@+id/password"
@@ -66,7 +66,7 @@
                 android:layout_height="50dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="25dp"
-                android:background="@color/white"/>
+                android:background="@drawable/rounded_field"/>
 
             <Button
                 android:layout_width="wrap_content"

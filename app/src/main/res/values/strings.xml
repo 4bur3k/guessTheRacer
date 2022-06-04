@@ -2,4 +2,9 @@
     <string name="app_name">GuessTheRacer</string>
     <string name="signIn">Sign in</string>
     <string name="signUp">Sign up</string>
+    <string name="registration">Registration</string>
+    <string name="name">Name</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="prof_photo">Profile photo</string>
 </resources>
