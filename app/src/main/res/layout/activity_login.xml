@@ -58,7 +58,9 @@
                 android:layout_height="50dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="100dp"
-                android:background="@drawable/rounded_field" />
+                android:background="@drawable/rounded_field"
+                android:textColor="@color/black"
+                android:fontFamily="@font/f1regular"/>
 
             <EditText
                 android:id="@+id/password"
@@ -66,7 +68,9 @@
                 android:layout_height="50dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="25dp"
-                android:background="@drawable/rounded_field"/>
+                android:background="@drawable/rounded_field"
+                android:textColor="@color/black"
+                android:fontFamily="@font/f1regular"/>
 
             <Button
                 android:id="@+id/signin_button"
@@ -81,25 +85,15 @@
 
         </LinearLayout>
 
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="bottom"
-            android:orientation="horizontal"
-            android:layout_weight="100">
-
-            <Button
+        <Button
                 android:id="@+id/signup_button"
-                android:layout_width="match_parent"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
+                android:layout_gravity="end"
                 android:text="@string/signUp"
                 android:fontFamily="@font/f1regular"
                 android:textSize="18sp"
                 android:background="#00FFFFFF" />
-
-         </LinearLayout>
 
     </LinearLayout>
 

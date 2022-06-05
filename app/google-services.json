@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "83303762566",
+    "project_id": "guess-the-racer",
+    "storage_bucket": "guess-the-racer.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:83303762566:android:200384775207ebb5055f07",
+        "android_client_info": {
+          "package_name": "com.example.guesstheracer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "83303762566-5n0r0u012r243dkk9oodqrli9752hpb0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABj16qTCW21JBhK7JnSbEOIMd6tq6rddg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "83303762566-5n0r0u012r243dkk9oodqrli9752hpb0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
