@@ -26,8 +26,6 @@ public class MainActivity extends AppCompatActivity {
 
     //mAuth is Firebase object that responsible for authorization
     FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener mAuthStateListener;
-
 
     @Override
     protected void onStart() {

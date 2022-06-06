@@ -26,12 +26,12 @@
             android:textSize="28sp" />
 
         <ImageView
-            android:layout_width="wrap_content"
+            android:id="@+id/game_img"
+            android:layout_width="match_parent"
             android:layout_height="311dp"
             android:layout_gravity="center"
             android:layout_marginTop="30dp"
             android:layout_weight="500"
-            android:background="@drawable/motogp_preview"
             android:scaleType="centerInside" />
 
         <LinearLayout
