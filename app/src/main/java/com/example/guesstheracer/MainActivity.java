@@ -23,15 +23,15 @@ public class MainActivity extends AppCompatActivity {
 
     EditText loginLine;
     EditText passwordLine;
+
+    //mAuth is Firebase object that responsible for authorization
     FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
 
 
     @Override
-    protected void onStart(){
+    protected void onStart() {
         super.onStart();
-
-        FirebaseUser currentUser = mAuth.getCurrentUser();
 
     }
 
@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, RegistrationActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
         });
@@ -56,26 +57,13 @@ public class MainActivity extends AppCompatActivity {
         //start of authorization initialization
         mAuth = FirebaseAuth.getInstance();
 
-        /*mAuthStateListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-
-                if (user != null) {
-                    //user is signed in
-                    Log.d(TAG, "onAuthStateChanged:signed_in: " + user.getUid());
-                } else {
-                    Log.d(TAG, "onAuthStateChanged:signed_out");
-                }
-            }
-        };*/
 
         //lines tha keeps email and password
-         loginLine = (EditText) findViewById(R.id.login);
-         passwordLine = (EditText) findViewById(R.id.password);
+        loginLine = (EditText) findViewById(R.id.login);
+        passwordLine = (EditText) findViewById(R.id.password);
 
 
-         //signInButton
+        //signInButton
         Button signInButton = (Button) findViewById(R.id.signin_button);
 
         signInButton.setOnClickListener(new View.OnClickListener() {
@@ -84,30 +72,31 @@ public class MainActivity extends AppCompatActivity {
                 String login = loginLine.getText().toString();
                 String password = passwordLine.getText().toString();
 
-                if(!login.equals("") || !password.equals("")){
+                if (!login.equals("") || !password.equals("")) {
                     signIn(login.toString(), password.toString());
                     Log.d(TAG, "signed in:" + login.toString());
-                } else {Log.d(TAG, "signing in error: field is empty"); }
-        }
-    });
+                } else {
+                    Log.d(TAG, "signing in error: field is empty");
+                }
+            }
+        });
     }
 
 
+    private void signIn(String email, String password) {
 
-    private void signIn(String email, String password){
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            //signed in, updating ui
 
-            mAuth.signInWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                //signed in, updating ui
-                                FirebaseUser user = mAuth.getCurrentUser();
-
-                                Intent intent = new Intent(MainActivity.this, HomepageActivity.class);
-                                startActivity(intent);
-                            }
+                            Intent intent = new Intent(MainActivity.this, HomepageActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
                         }
-                    });
-        }
+                    }
+                });
     }
+}
