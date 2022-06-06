@@ -59,7 +59,8 @@
             android:background="@drawable/f1_preview"
             android:scaleType="centerInside" />
 
-        <TextView
+        <Button
+            android:id="@+id/f1_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -68,7 +69,8 @@
             android:textColor="@color/white"
             android:fontFamily="@font/f1regular"
             android:text="@string/formula1"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:background="#00FFFFFF"/>
 
         <ImageView
             android:layout_width="match_parent"
@@ -80,7 +82,8 @@
             android:scaleType="centerInside"
             />
 
-        <TextView
+        <Button
+            android:id="@+id/nascar_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -89,7 +92,8 @@
             android:textColor="@color/white"
             android:fontFamily="@font/f1regular"
             android:text="@string/nascar"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:background="#00FFFFFF"/>
 
         <ImageView
             android:layout_width="match_parent"
@@ -101,7 +105,8 @@
             android:scaleType="centerInside"
             />
 
-        <TextView
+        <Button
+            android:id="@+id/motogp_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -110,17 +115,10 @@
             android:textColor="@color/white"
             android:fontFamily="@font/f1regular"
             android:text="@string/motogp"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:background="#00FFFFFF"/>
 
-        <Button
-            android:id="@+id/signup_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/start"
-            android:fontFamily="@font/f1regular"
-            android:textSize="24sp"
-            android:background="#00FFFFFF" />
+
 
 
     </LinearLayout>
