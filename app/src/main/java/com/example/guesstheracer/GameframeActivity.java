@@ -19,4 +19,16 @@ public class GameframeActivity extends AppCompatActivity {
         chronometer.start();
 
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+    }
+
+    @Override
+    protected void onRestart(){ //!!!!MAUBE U SHOULD USE OTHER WAY?
+        super.onRestart();
+
+    }
 }
