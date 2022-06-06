@@ -19,6 +19,8 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG = "Authorization";
+
     EditText loginLine;
     EditText passwordLine;
     FirebaseAuth mAuth;
@@ -32,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,35 +56,38 @@ public class MainActivity extends AppCompatActivity {
         //start of authorization initialization
         mAuth = FirebaseAuth.getInstance();
 
-        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
+        /*mAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
 
                 if (user != null) {
                     //user is signed in
-                    Log.d("123456", "onAuthStateChanged:signed_in: " + user.getUid());
+                    Log.d(TAG, "onAuthStateChanged:signed_in: " + user.getUid());
                 } else {
-                    Log.d("123456", "onAuthStateChanged:signed_out");
+                    Log.d(TAG, "onAuthStateChanged:signed_out");
                 }
             }
-        };
+        };*/
 
         //lines tha keeps email and password
          loginLine = (EditText) findViewById(R.id.login);
          passwordLine = (EditText) findViewById(R.id.password);
 
+
          //signInButton
         Button signInButton = (Button) findViewById(R.id.signin_button);
+
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Editable login = loginLine.getText();
-                Editable password = passwordLine.getText();
+                String login = loginLine.getText().toString();
+                String password = passwordLine.getText().toString();
 
-                if(login != null || password != null){
+                if(!login.equals("") || !password.equals("")){
                     signIn(login.toString(), password.toString());
-                }
+                    Log.d(TAG, "signed in:" + login.toString());
+                } else {Log.d(TAG, "signing in error: field is empty"); }
         }
     });
     }
