@@ -52,6 +52,7 @@
             android:orientation="vertical"
             android:layout_weight="50">
 
+
             <EditText
                 android:id="@+id/login"
                 android:layout_width="300dp"
@@ -60,7 +61,8 @@
                 android:layout_marginTop="100dp"
                 android:background="@drawable/rounded_field"
                 android:textColor="@color/black"
-                android:fontFamily="@font/f1regular"/>
+                android:fontFamily="@font/f1regular"
+                android:inputType="textEmailAddress"/>
 
             <EditText
                 android:id="@+id/password"
