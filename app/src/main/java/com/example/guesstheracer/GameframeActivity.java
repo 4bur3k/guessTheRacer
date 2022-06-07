@@ -9,13 +9,14 @@ package com.example.guesstheracer;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.ImageView;
@@ -46,6 +47,8 @@ public class GameframeActivity extends AppCompatActivity {
     Map<String, String> res = new HashMap<>();
     List<Map.Entry<String, String>> list;
     int counter = 0;
+    boolean[] rightAnswer = {false, false, false, false};
+    int rateCounter = 0;
 
 
     @Override
@@ -57,16 +60,16 @@ public class GameframeActivity extends AppCompatActivity {
         //getting reference on Firebase database to extract data
         mDatabase = FirebaseDatabase.getInstance("https://guess-the-racer-default-rtdb.europe-west1.firebasedatabase.app").getReference();
 
-        imgView = (ImageView) findViewById(R.id.game_img);
-        firstButton = (Button) findViewById(R.id.first_button);
-        secondButton = (Button) findViewById(R.id.second_button);
-        thirdButton = (Button) findViewById(R.id.third_button);
-        fourthButton = (Button) findViewById(R.id.fourth_button);
+        imgView =  findViewById(R.id.game_img);
+        firstButton =  findViewById(R.id.first_button);
+        secondButton =  findViewById(R.id.second_button);
+        thirdButton =  findViewById(R.id.third_button);
+        fourthButton =  findViewById(R.id.fourth_button);
 
         getDataFromFirebase();
 
         //Start timer
-        chronometer = (Chronometer) findViewById(R.id.chronometer);
+        chronometer =  findViewById(R.id.chronometer);
         long startTime = SystemClock.elapsedRealtime();
         chronometer.setBase(startTime);
         chronometer.start();
@@ -77,24 +80,92 @@ public class GameframeActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        Log.d(TAG, "View started");
 
+        //Animation rightAnswerAnim = AnimationUtils.loadAnimation(GameframeActivity.this, R.anim.right_answer_anim);
+        Animation wrongAnswerAnim = AnimationUtils.loadAnimation(GameframeActivity.this, R.anim.right_answer_anim);
+
+        wrongAnswerAnim.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                updateGameContent(list);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
 
         firstButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(counter != list.size()) {
-                    updateGameContent(list);
-                } else {
-                    chronometer.stop();
-                    setImage("start_flag");
-                    firstButton.setText("");
-                    secondButton.setText("");
-                    thirdButton.setText("");
-                    fourthButton.setText("");
+                    if(rightAnswer[0]){
+                        rightAnswer[0] = false;
+                        rateCounter ++;
+
+                        updateGameContent(list);
+                    } else { firstButton.startAnimation(wrongAnswerAnim); }
+
                 }
             }
         });
+
+        secondButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(counter != list.size()) {
+                    if(rightAnswer[1]){
+                        rightAnswer[1] = false;
+                        rateCounter ++;
+
+                        updateGameContent(list);
+                    } else { secondButton.startAnimation(wrongAnswerAnim); }
+
+                }
+            }
+        });
+
+        thirdButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(counter != list.size()) {
+                    if(rightAnswer[2]){
+                        rightAnswer[2] = false;
+                        rateCounter ++;
+
+                        updateGameContent(list);
+                    }  else { thirdButton.startAnimation(wrongAnswerAnim); }
+
+                }
+            }
+        });
+
+        fourthButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(counter != list.size()) {
+                    if(rightAnswer[3]){
+                        rightAnswer[3] = false;
+                        rateCounter ++;
+
+                        updateGameContent(list);
+                    } else { fourthButton.startAnimation(wrongAnswerAnim); }
+
+                }
+            }
+        });
+    }
+
+    @Override
+    protected void onStop(){
+        super.onStop();
+        Log.d(TAG, "Scores:" + rateCounter);
     }
 
 
@@ -140,7 +211,6 @@ public class GameframeActivity extends AppCompatActivity {
         List<Map.Entry<String, String>> list = new ArrayList<Map.Entry<String, String>>(map.entrySet());
 
         Collections.shuffle(list);
-        Log.d(TAG, "shuffled data:" + list);
         return list;
     }
 
@@ -148,34 +218,37 @@ public class GameframeActivity extends AppCompatActivity {
     //Updating ImageView and Buttons[1,2,3,4] by racers pics and name
     private void updateGameContent(List<Map.Entry<String, String>> list) {
         setImage(list.get(counter).getValue());
+        Log.d(TAG, "Data: " + list.get(counter).getKey() + " " + list.get(counter).getValue());
         Random rand = new Random();
-        int size = list.size();
 
         switch (rand.nextInt(5)) {
             case (1):
-                updateButtons(list);
+                updateButtonsAndImage(list);
                 firstButton.setText(list.get(counter).getKey());
+                rightAnswer[0] = true;
                 break;
             case (2):
-                updateButtons(list);
+                updateButtonsAndImage(list);
                 secondButton.setText(list.get(counter).getKey());
+                rightAnswer[1] = true;
                 break;
             case (3):
-                updateButtons(list);
+                updateButtonsAndImage(list);
                 thirdButton.setText(list.get(counter).getKey());
+                rightAnswer[2] = true;
                 break;
             case (4):
-                updateButtons(list);
+                updateButtonsAndImage(list);
                 fourthButton.setText(list.get(counter).getKey());
+                rightAnswer[3] = true;
                 break;
         }
-
-        Log.d(TAG, "interface updated");
+        Log.d(TAG, "Answers " + rightAnswer[0] + " " +rightAnswer[1]+ " " +rightAnswer[2]+ " " + rightAnswer[3] );
         counter ++;
     }
 
     // Updating 4 Buttons by random Names from List<Map.Entry<String, String>> list
-    private void updateButtons(List<Map.Entry<String, String>> list){
+    private void updateButtonsAndImage(List<Map.Entry<String, String>> list){
         Random rand = new Random();
         int size = list.size();
         ArrayList<Integer> usedIndexes = new ArrayList<>();
@@ -183,7 +256,7 @@ public class GameframeActivity extends AppCompatActivity {
 
         int index = rand.nextInt(size);
 
-        if(!usedIndexes.contains(index)) { firstButton.setText(list.get(index).getKey()); usedIndexes.add(index); }
+        if(!usedIndexes.contains(index)) { firstButton.setText(list.get(index).getKey()); usedIndexes.add(index);}
         else { while(usedIndexes.contains(index)){
                 index = rand.nextInt(size);
             }
@@ -219,7 +292,17 @@ public class GameframeActivity extends AppCompatActivity {
         }
 
             fourthButton.setText(list.get(index).getKey());
+            usedIndexes.add(index);
         }
+    }
+
+    private void updateGameContentEnd(){
+        chronometer.stop();
+        setImage("start_flag");
+        firstButton.setText("");
+        secondButton.setText("");
+        thirdButton.setText("");
+        fourthButton.setText("");
     }
 
 }
