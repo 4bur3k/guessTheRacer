@@ -10,12 +10,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
@@ -29,28 +26,26 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import kotlin.OverloadResolutionByLambdaReturnType;
+import java.util.Random;
 
 public class GameframeActivity extends AppCompatActivity {
 
     String TAG = "GameFrameActivity";
     DatabaseReference mDatabase;
     ImageView imgView;
-    Button firstButton;
+    Button firstButton, secondButton, thirdButton, fourthButton;
     Chronometer chronometer;
     //It's a map contains list of racers [key:name, value: picture name]
     //why don't work if res is local variable(asking to make it final)?
     Map<String, String> res = new HashMap<>();
     List<Map.Entry<String, String>> list;
+    int counter = 0;
 
 
     @Override
@@ -64,6 +59,9 @@ public class GameframeActivity extends AppCompatActivity {
 
         imgView = (ImageView) findViewById(R.id.game_img);
         firstButton = (Button) findViewById(R.id.first_button);
+        secondButton = (Button) findViewById(R.id.second_button);
+        thirdButton = (Button) findViewById(R.id.third_button);
+        fourthButton = (Button) findViewById(R.id.fourth_button);
 
         getDataFromFirebase();
 
@@ -85,9 +83,16 @@ public class GameframeActivity extends AppCompatActivity {
         firstButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!list.isEmpty()) {
+                if(counter != list.size()) {
                     updateGameContent(list);
-                } else { chronometer.stop(); setImage("start_flag");}
+                } else {
+                    chronometer.stop();
+                    setImage("start_flag");
+                    firstButton.setText("");
+                    secondButton.setText("");
+                    thirdButton.setText("");
+                    fourthButton.setText("");
+                }
             }
         });
     }
@@ -142,9 +147,79 @@ public class GameframeActivity extends AppCompatActivity {
 
     //Updating ImageView and Buttons[1,2,3,4] by racers pics and name
     private void updateGameContent(List<Map.Entry<String, String>> list) {
-        setImage(list.remove(0).getValue());
+        setImage(list.get(counter).getValue());
+        Random rand = new Random();
+        int size = list.size();
+
+        switch (rand.nextInt(5)) {
+            case (1):
+                updateButtons(list);
+                firstButton.setText(list.get(counter).getKey());
+                break;
+            case (2):
+                updateButtons(list);
+                secondButton.setText(list.get(counter).getKey());
+                break;
+            case (3):
+                updateButtons(list);
+                thirdButton.setText(list.get(counter).getKey());
+                break;
+            case (4):
+                updateButtons(list);
+                fourthButton.setText(list.get(counter).getKey());
+                break;
+        }
 
         Log.d(TAG, "interface updated");
+        counter ++;
+    }
+
+    // Updating 4 Buttons by random Names from List<Map.Entry<String, String>> list
+    private void updateButtons(List<Map.Entry<String, String>> list){
+        Random rand = new Random();
+        int size = list.size();
+        ArrayList<Integer> usedIndexes = new ArrayList<>();
+        usedIndexes.add(counter);
+
+        int index = rand.nextInt(size);
+
+        if(!usedIndexes.contains(index)) { firstButton.setText(list.get(index).getKey()); usedIndexes.add(index); }
+        else { while(usedIndexes.contains(index)){
+                index = rand.nextInt(size);
+            }
+
+            firstButton.setText(list.get(index).getKey());
+            usedIndexes.add(index);
+        }
+
+        index = rand.nextInt(size);
+        if(!usedIndexes.contains(index)){ secondButton.setText(list.get(index).getKey()); usedIndexes.add(index); }
+        else { while(usedIndexes.contains(index)){
+            index = rand.nextInt(size);
+        }
+
+            secondButton.setText(list.get(index).getKey());
+            usedIndexes.add(index);
+        }
+
+        index = rand.nextInt(size);
+        if(!usedIndexes.contains(index)){ thirdButton.setText(list.get(index).getKey()); usedIndexes.add(index);}
+        else { while(usedIndexes.contains(index)){
+            index = rand.nextInt(size);
+        }
+
+            thirdButton.setText(list.get(index).getKey());
+            usedIndexes.add(index);
+        }
+
+        index = rand.nextInt(size);
+        if(!usedIndexes.contains(index)){ fourthButton.setText(list.get(index).getKey()); usedIndexes.add(index);}
+        else { while(usedIndexes.contains(index)){
+            index = rand.nextInt(size);
+        }
+
+            fourthButton.setText(list.get(index).getKey());
+        }
     }
 
 }

@@ -56,7 +56,6 @@
                     android:layout_weight="25"
                     android:background="@drawable/rounded_frame_left_top"
                     android:fontFamily="@font/f1regular"
-                    android:text="Lewis Hamilton"
                     android:textColor="@color/black"
                     android:textSize="18sp" />
 
@@ -68,7 +67,6 @@
                     android:layout_weight="25"
                     android:background="@drawable/rounded_frame_right_top"
                     android:fontFamily="@font/f1regular"
-                    android:text="Lewis Hamilton"
                     android:textColor="@color/black"
                     android:textSize="18sp" />
             </LinearLayout>
@@ -88,7 +86,6 @@
                     android:layout_weight="25"
                     android:background="@drawable/rounded_frame_left_bot"
                     android:fontFamily="@font/f1regular"
-                    android:text="Lewis Hamilton"
                     android:textColor="@color/black"
                     android:textSize="18sp" />
 
@@ -100,7 +97,6 @@
                     android:layout_weight="25"
                     android:background="@drawable/rounded_frame_right_bot"
                     android:fontFamily="@font/f1regular"
-                    android:text="Lewis Hamilton"
                     android:textColor="@color/black"
                     android:textSize="18sp" />
             </LinearLayout>
