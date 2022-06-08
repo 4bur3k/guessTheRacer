@@ -57,7 +57,7 @@
             android:layout_marginTop="20dp"
             android:layout_weight="40"
             android:background="@drawable/f1_preview"
-            android:scaleType="centerInside" />
+            android:scaleType="center" />
 
         <Button
             android:id="@+id/f1_button"
@@ -73,13 +73,13 @@
             android:background="#00FFFFFF"/>
 
         <ImageView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:layout_weight="40"
             android:background="@drawable/nascar_preview"
-            android:scaleType="centerInside"
+            android:scaleType="center"
             />
 
         <Button
@@ -96,13 +96,13 @@
             android:background="#00FFFFFF"/>
 
         <ImageView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:layout_weight="40"
             android:background="@drawable/motogp_preview"
-            android:scaleType="centerInside"
+            android:scaleType="centerCrop"
             />
 
         <Button

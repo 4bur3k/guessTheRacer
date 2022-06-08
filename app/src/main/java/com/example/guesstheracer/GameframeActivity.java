@@ -20,6 +20,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -41,6 +42,7 @@ public class GameframeActivity extends AppCompatActivity {
     String TAG = "GameFrameActivity";
     DatabaseReference mDatabase;
     ImageView imgView;
+    TextView scoresView;
     Button firstButton, secondButton, thirdButton, fourthButton;
     Chronometer chronometer;
     //It's a map contains list of racers [key:name, value: picture name]
@@ -63,6 +65,7 @@ public class GameframeActivity extends AppCompatActivity {
 
         //initialising all Views
         imgView = findViewById(R.id.game_img);
+        //scoresView = findViewById(R.id.scores);
         firstButton = findViewById(R.id.first_button);
         secondButton = findViewById(R.id.second_button);
         thirdButton = findViewById(R.id.third_button);
@@ -331,6 +334,7 @@ public class GameframeActivity extends AppCompatActivity {
         secondButton.setText("");
         thirdButton.setText("");
         fourthButton.setText("");
+        //scoresView.setText(scores);
     }
 }
 

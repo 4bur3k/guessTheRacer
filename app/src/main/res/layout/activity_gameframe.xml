@@ -100,11 +100,6 @@
                     android:textColor="@color/black"
                     android:textSize="18sp" />
             </LinearLayout>
-
         </LinearLayout>
-
-
     </LinearLayout>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
