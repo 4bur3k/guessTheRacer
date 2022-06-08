@@ -29,6 +29,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -46,9 +47,9 @@ public class GameframeActivity extends AppCompatActivity {
     //why don't work if res is local variable(asking to make it final)?
     Map<String, String> res = new HashMap<>();
     List<Map.Entry<String, String>> list;
-    int counter = 0;
+    int currentElement = 0;
     boolean[] rightAnswer = {false, false, false, false};
-    int rateCounter = 0;
+    int scores = 0;
 
 
     @Override
@@ -60,16 +61,18 @@ public class GameframeActivity extends AppCompatActivity {
         //getting reference on Firebase database to extract data
         mDatabase = FirebaseDatabase.getInstance("https://guess-the-racer-default-rtdb.europe-west1.firebasedatabase.app").getReference();
 
-        imgView =  findViewById(R.id.game_img);
-        firstButton =  findViewById(R.id.first_button);
-        secondButton =  findViewById(R.id.second_button);
-        thirdButton =  findViewById(R.id.third_button);
-        fourthButton =  findViewById(R.id.fourth_button);
+        //initialising all Views
+        imgView = findViewById(R.id.game_img);
+        firstButton = findViewById(R.id.first_button);
+        secondButton = findViewById(R.id.second_button);
+        thirdButton = findViewById(R.id.third_button);
+        fourthButton = findViewById(R.id.fourth_button);
 
-        getDataFromFirebase();
+        //getting data from Firebase
+        getDataFromFirebase("f1");
 
-        //Start timer
-        chronometer =  findViewById(R.id.chronometer);
+        //Starting timer
+        chronometer = findViewById(R.id.chronometer);
         long startTime = SystemClock.elapsedRealtime();
         chronometer.setBase(startTime);
         chronometer.start();
@@ -81,7 +84,7 @@ public class GameframeActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        //Animation rightAnswerAnim = AnimationUtils.loadAnimation(GameframeActivity.this, R.anim.right_answer_anim);
+        //Initialising animation if user make a mistake
         Animation wrongAnswerAnim = AnimationUtils.loadAnimation(GameframeActivity.this, R.anim.right_answer_anim);
 
         wrongAnswerAnim.setAnimationListener(new Animation.AnimationListener() {
@@ -92,6 +95,7 @@ public class GameframeActivity extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
+                Arrays.fill(rightAnswer, false);
                 updateGameContent(list);
             }
 
@@ -101,78 +105,90 @@ public class GameframeActivity extends AppCompatActivity {
             }
         });
 
+        //Getting answer[start]
         firstButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(counter != list.size()) {
-                    if(rightAnswer[0]){
-                        rightAnswer[0] = false;
-                        rateCounter ++;
+                //Checking that it's not last element
+                if (currentElement != list.size()) {
+                    if (rightAnswer[0]) {
+                        Arrays.fill(rightAnswer, false);
+                        scores++;
 
                         updateGameContent(list);
-                    } else { firstButton.startAnimation(wrongAnswerAnim); }
+                    } else {
+                        firstButton.startAnimation(wrongAnswerAnim);
+                    }
 
-                }
+                } else { updateGameContentEnd();}
             }
         });
 
         secondButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(counter != list.size()) {
-                    if(rightAnswer[1]){
-                        rightAnswer[1] = false;
-                        rateCounter ++;
+                if (currentElement != list.size()) {
+                    if (rightAnswer[1]) {
+                        Arrays.fill(rightAnswer, false);
+                        scores++;
 
                         updateGameContent(list);
-                    } else { secondButton.startAnimation(wrongAnswerAnim); }
+                    } else {
+                        secondButton.startAnimation(wrongAnswerAnim);
+                    }
 
-                }
+                } else { updateGameContentEnd();}
             }
         });
 
         thirdButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(counter != list.size()) {
-                    if(rightAnswer[2]){
-                        rightAnswer[2] = false;
-                        rateCounter ++;
+                if (currentElement != list.size()) {
+                    if (rightAnswer[2]) {
+                        Arrays.fill(rightAnswer, false);
+                        scores++;
 
                         updateGameContent(list);
-                    }  else { thirdButton.startAnimation(wrongAnswerAnim); }
+                    } else {
+                        thirdButton.startAnimation(wrongAnswerAnim);
+                    }
 
-                }
+                } else { updateGameContentEnd();}
             }
         });
 
         fourthButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(counter != list.size()) {
-                    if(rightAnswer[3]){
-                        rightAnswer[3] = false;
-                        rateCounter ++;
+                if (currentElement != list.size()) {
+                    if (rightAnswer[3]) {
+                        Arrays.fill(rightAnswer, false);
+                        scores++;
 
                         updateGameContent(list);
-                    } else { fourthButton.startAnimation(wrongAnswerAnim); }
+                    } else {
+                        fourthButton.startAnimation(wrongAnswerAnim);
+                    }
 
-                }
+                } else { updateGameContentEnd();}
             }
         });
+        //Getting answer[end]
     }
 
     @Override
-    protected void onStop(){
+    protected void onStop() {
         super.onStop();
-        Log.d(TAG, "Scores:" + rateCounter);
+        Log.d(TAG, "Scores:" + scores);
     }
 
 
     //should returns Map<String, String> contains Names and pic names
-    private void getDataFromFirebase() {
+    //work in second Thread
+    private void getDataFromFirebase(String pack) {
 
-        mDatabase.child("f1").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        mDatabase.child(pack).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (task.isSuccessful()) {
@@ -192,11 +208,11 @@ public class GameframeActivity extends AppCompatActivity {
     //setting image on main ImageView
     private void setImage(String name) {
         try {
-            imgView.setImageDrawable(getDrawableFromAssets("f1/"+ name +".jpg"));
+            imgView.setImageDrawable(getDrawableFromAssets("f1/" + name + ".jpg"));
             imgView.setScaleType(ImageView.ScaleType.FIT_CENTER);
             Log.d(TAG, "image was set:" + name);
         } catch (IOException e) {
-            Log.e(TAG,e.getMessage());
+            Log.e(TAG, e.getMessage());
         }
     }
 
@@ -215,49 +231,52 @@ public class GameframeActivity extends AppCompatActivity {
     }
 
 
-    //Updating ImageView and Buttons[1,2,3,4] by racers pics and name
+    //Updating ImageView and all Buttons[1,2,3,4] by racers pics and name
     private void updateGameContent(List<Map.Entry<String, String>> list) {
-        setImage(list.get(counter).getValue());
-        Log.d(TAG, "Data: " + list.get(counter).getKey() + " " + list.get(counter).getValue());
+        setImage(list.get(currentElement).getValue());
+        Log.d(TAG, "Data: " + list.get(currentElement).getKey() + " " + list.get(currentElement).getValue());
         Random rand = new Random();
 
-        switch (rand.nextInt(5)) {
+        switch (rand.nextInt(4)) {
+            case (0):
+                updateButtonsAndImage(list);
+                firstButton.setText(list.get(currentElement).getKey());
+                rightAnswer[0] = true;
+                break;
             case (1):
                 updateButtonsAndImage(list);
-                firstButton.setText(list.get(counter).getKey());
-                rightAnswer[0] = true;
+                secondButton.setText(list.get(currentElement).getKey());
+                rightAnswer[1] = true;
                 break;
             case (2):
                 updateButtonsAndImage(list);
-                secondButton.setText(list.get(counter).getKey());
-                rightAnswer[1] = true;
+                thirdButton.setText(list.get(currentElement).getKey());
+                rightAnswer[2] = true;
                 break;
             case (3):
                 updateButtonsAndImage(list);
-                thirdButton.setText(list.get(counter).getKey());
-                rightAnswer[2] = true;
-                break;
-            case (4):
-                updateButtonsAndImage(list);
-                fourthButton.setText(list.get(counter).getKey());
+                fourthButton.setText(list.get(currentElement).getKey());
                 rightAnswer[3] = true;
                 break;
         }
-        Log.d(TAG, "Answers " + rightAnswer[0] + " " +rightAnswer[1]+ " " +rightAnswer[2]+ " " + rightAnswer[3] );
-        counter ++;
+        Log.d(TAG, "Answers " + rightAnswer[0] + " " + rightAnswer[1] + " " + rightAnswer[2] + " " + rightAnswer[3]);
+        currentElement++;
     }
 
     // Updating 4 Buttons by random Names from List<Map.Entry<String, String>> list
-    private void updateButtonsAndImage(List<Map.Entry<String, String>> list){
+    private void updateButtonsAndImage(List<Map.Entry<String, String>> list) {
         Random rand = new Random();
         int size = list.size();
         ArrayList<Integer> usedIndexes = new ArrayList<>();
-        usedIndexes.add(counter);
+        usedIndexes.add(currentElement);
 
         int index = rand.nextInt(size);
 
-        if(!usedIndexes.contains(index)) { firstButton.setText(list.get(index).getKey()); usedIndexes.add(index);}
-        else { while(usedIndexes.contains(index)){
+        if (!usedIndexes.contains(index)) {
+            firstButton.setText(list.get(index).getKey());
+            usedIndexes.add(index);
+        } else {
+            while (usedIndexes.contains(index)) {
                 index = rand.nextInt(size);
             }
 
@@ -266,37 +285,46 @@ public class GameframeActivity extends AppCompatActivity {
         }
 
         index = rand.nextInt(size);
-        if(!usedIndexes.contains(index)){ secondButton.setText(list.get(index).getKey()); usedIndexes.add(index); }
-        else { while(usedIndexes.contains(index)){
-            index = rand.nextInt(size);
-        }
+        if (!usedIndexes.contains(index)) {
+            secondButton.setText(list.get(index).getKey());
+            usedIndexes.add(index);
+        } else {
+            while (usedIndexes.contains(index)) {
+                index = rand.nextInt(size);
+            }
 
             secondButton.setText(list.get(index).getKey());
             usedIndexes.add(index);
         }
 
         index = rand.nextInt(size);
-        if(!usedIndexes.contains(index)){ thirdButton.setText(list.get(index).getKey()); usedIndexes.add(index);}
-        else { while(usedIndexes.contains(index)){
-            index = rand.nextInt(size);
-        }
+        if (!usedIndexes.contains(index)) {
+            thirdButton.setText(list.get(index).getKey());
+            usedIndexes.add(index);
+        } else {
+            while (usedIndexes.contains(index)) {
+                index = rand.nextInt(size);
+            }
 
             thirdButton.setText(list.get(index).getKey());
             usedIndexes.add(index);
         }
 
         index = rand.nextInt(size);
-        if(!usedIndexes.contains(index)){ fourthButton.setText(list.get(index).getKey()); usedIndexes.add(index);}
-        else { while(usedIndexes.contains(index)){
-            index = rand.nextInt(size);
-        }
+        if (!usedIndexes.contains(index)) {
+            fourthButton.setText(list.get(index).getKey());
+            usedIndexes.add(index);
+        } else {
+            while (usedIndexes.contains(index)) {
+                index = rand.nextInt(size);
+            }
 
             fourthButton.setText(list.get(index).getKey());
             usedIndexes.add(index);
         }
     }
 
-    private void updateGameContentEnd(){
+    private void updateGameContentEnd() {
         chronometer.stop();
         setImage("start_flag");
         firstButton.setText("");
@@ -304,6 +332,5 @@ public class GameframeActivity extends AppCompatActivity {
         thirdButton.setText("");
         fourthButton.setText("");
     }
-
 }
 
