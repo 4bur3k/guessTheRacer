@@ -70,10 +70,6 @@ public class MainActivity extends AppCompatActivity {
                 String login = loginLine.getText().toString();
                 String password = passwordLine.getText().toString();
 
-                Intent intent = new Intent(MainActivity.this, HomepageActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-
                 if (!login.equals("") || !password.equals("")) {
                     signIn(login.toString(), password.toString());
                     Log.d(TAG, "signed in:" + login.toString());
