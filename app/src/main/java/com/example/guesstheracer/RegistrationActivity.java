@@ -62,7 +62,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
                         if(task.isSuccessful()) {
                             Log.d(TAG, "createUserWithEmail:success");
-                            
+
                             Intent intent = new Intent(RegistrationActivity.this, HomepageActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
