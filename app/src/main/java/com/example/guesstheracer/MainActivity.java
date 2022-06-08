@@ -74,12 +74,12 @@ public class MainActivity extends AppCompatActivity {
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
 
-                /*if (!login.equals("") || !password.equals("")) {
+                if (!login.equals("") || !password.equals("")) {
                     signIn(login.toString(), password.toString());
                     Log.d(TAG, "signed in:" + login.toString());
                 } else {
                     Log.d(TAG, "signing in error: field is empty");
-                }*/
+                }
             }
         });
     }
