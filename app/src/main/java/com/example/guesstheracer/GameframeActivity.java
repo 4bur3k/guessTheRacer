@@ -55,6 +55,7 @@ public class GameframeActivity extends AppCompatActivity {
     boolean[] rightAnswer = {false, false, false, false};
     int scores = 0;
     long startTime;
+    User user;
 
 
     @Override
@@ -335,7 +336,15 @@ public class GameframeActivity extends AppCompatActivity {
     //updating UI when game is over
     private void updateGameContentEnd() {
         chronometer.stop();
-        Log.d(TAG, "Time: " + (SystemClock.elapsedRealtime()  - startTime) / 1000 + " Scores: " + scores);
+
+        //i'm keeping current user as a global variable to not upload data from data base
+        MyApplication mApp = com.example.guesstheracer.MyApplication.getInstance();
+        user = mApp.getUser();
+        user.setTime_ms(SystemClock.elapsedRealtime()  - startTime);
+        user.setScores(scores);
+        mApp.setUser(user);
+
+        Log.d(TAG, "Time: " + user.getTime_sec() + " Scores: " + scores);
         setImage("start_flag");
         firstButton.setText("");
         secondButton.setText("");
