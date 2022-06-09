@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -58,6 +59,17 @@ public class HomepageActivity extends AppCompatActivity {
             public void onClick(View view) {
                 startGame("motogp");
 
+            }
+        });
+
+        profilePicButton = findViewById(R.id.upload_profile_img);
+        profilePicButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                Intent intent = new Intent(HomepageActivity.this, ProfileActivity.class);
+                startActivity(intent);
+
+                return false;
             }
         });
     }

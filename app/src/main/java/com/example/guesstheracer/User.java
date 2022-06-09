@@ -1,5 +1,8 @@
 package com.example.guesstheracer;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class User {
     private String userID;
     private String name;
@@ -13,8 +16,9 @@ public class User {
         this.time = 0;
     }
 
-    User(String name, String UserID){
+    User(String name, String userID){
         this.name = name;
+        this.userID = userID;
         scores = 0;
         time = 0;
     }
@@ -55,6 +59,17 @@ public class User {
 
     public void setUserID(String userID) {
         this.userID = userID;
+    }
+
+    //Converting User user to Map to upload data in database
+    public Map<String, Object>  toMap(){
+        HashMap<String, Object> result = new HashMap<>();
+
+        result.put("name", name);
+        result.put("scores", scores);
+        result.put("time", time);
+
+        return result;
     }
 }
 

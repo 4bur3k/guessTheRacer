@@ -6,4 +6,101 @@
     android:layout_height="match_parent"
     tools:context=".ProfileActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="28sp"
+            android:fontFamily="@font/f1regular"
+            android:text="@string/profile"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/round_button_registration"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:fontFamily="@font/f1regular"
+            android:text="Denis Kuznetsov"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="10"
+                android:background="@drawable/text_view_frame"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:fontFamily="@font/f1regular"
+                android:text="1"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="10"
+                android:background="@drawable/text_view_frame"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:fontFamily="@font/f1regular"
+                android:text="1"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="60"
+                android:background="@drawable/text_view_frame"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:fontFamily="@font/f1regular"
+                android:text="Denis Kuznetsov"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="20"
+                android:background="@drawable/text_view_frame"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:fontFamily="@font/f1regular"
+                android:text="1"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="20"
+                android:background="@drawable/text_view_frame"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:fontFamily="@font/f1regular"
+                android:text="1"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

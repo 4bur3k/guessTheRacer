@@ -27,7 +27,6 @@ public class RegistrationActivity extends AppCompatActivity {
     ImageButton uploadUserPhoto;
     FirebaseAuth mAuth;
     DatabaseReference mDatabase;
-    User user;
 
 
     @Override
@@ -69,12 +68,15 @@ public class RegistrationActivity extends AppCompatActivity {
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-
                         if(task.isSuccessful()) {
                             Log.d(TAG, "createUserWithEmail:success");
 
                             //creating a new user in DB
                             FirebaseUser FBuser = mAuth.getCurrentUser();
+
+                            while(FBuser == null){
+                                FBuser = mAuth.getCurrentUser();
+                            }
 
                             User user = new User(name, FBuser.getUid());
                             //i'm keeping current user as a global variable to not upload data from data base
@@ -94,6 +96,7 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
     private void addUserToDataBase(User user, DatabaseReference _mDatabase){
+        Log.d(TAG, "UID: " + user.getUserID());
         mDatabase.child("users").child(user.getUserID()).setValue(user);
     }
 }

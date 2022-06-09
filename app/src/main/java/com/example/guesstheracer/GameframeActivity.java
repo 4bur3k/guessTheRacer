@@ -130,7 +130,16 @@ public class GameframeActivity extends AppCompatActivity {
                         firstButton.startAnimation(wrongAnswerAnim);
                     }
 
-                } else { updateGameContentEnd();}
+                } else {
+                    if (rightAnswer[0]) {
+                        Arrays.fill(rightAnswer, false);
+                        scores++;
+
+                    } else {
+                        firstButton.startAnimation(wrongAnswerAnim);
+                    }
+                    updateGameContentEnd();
+                }
             }
         });
 
@@ -147,7 +156,16 @@ public class GameframeActivity extends AppCompatActivity {
                         secondButton.startAnimation(wrongAnswerAnim);
                     }
 
-                } else { updateGameContentEnd();}
+                } else {
+                    if (rightAnswer[1]) {
+                        Arrays.fill(rightAnswer, false);
+                        scores++;
+
+                    } else {
+                        firstButton.startAnimation(wrongAnswerAnim);
+                    }
+                    updateGameContentEnd();
+                }
             }
         });
 
@@ -164,7 +182,15 @@ public class GameframeActivity extends AppCompatActivity {
                         thirdButton.startAnimation(wrongAnswerAnim);
                     }
 
-                } else { updateGameContentEnd();}
+                } else {
+                    if (rightAnswer[2]) {
+                        Arrays.fill(rightAnswer, false);
+                        scores++;
+
+                    } else {
+                        firstButton.startAnimation(wrongAnswerAnim);
+                    }
+                    updateGameContentEnd();}
             }
         });
 
@@ -181,7 +207,15 @@ public class GameframeActivity extends AppCompatActivity {
                         fourthButton.startAnimation(wrongAnswerAnim);
                     }
 
-                } else { updateGameContentEnd();}
+                } else {
+                    if (rightAnswer[3]) {
+                        Arrays.fill(rightAnswer, false);
+                        scores++;
+
+                    } else {
+                        firstButton.startAnimation(wrongAnswerAnim);
+                    }
+                    updateGameContentEnd();}
             }
         });
         //Getting answer[end]
@@ -344,6 +378,13 @@ public class GameframeActivity extends AppCompatActivity {
         user.setScores(scores);
         mApp.setUser(user);
 
+        //Preparing Map<String, Object> contains way to "users"
+        // and Map with user data(user.toMap())
+        Map<String, Object> childUpdate = new HashMap<>();
+        childUpdate.put("/users/" + user.getUserID(), user.toMap());
+
+        mDatabase.updateChildren(childUpdate);
+
         Log.d(TAG, "Time: " + user.getTime_sec() + " Scores: " + scores);
         setImage("start_flag");
         firstButton.setText("");
@@ -351,5 +392,6 @@ public class GameframeActivity extends AppCompatActivity {
         thirdButton.setText("");
         fourthButton.setText("");
     }
+
 }
 
