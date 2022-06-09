@@ -61,22 +61,11 @@
                 android:text="123"/>
 
 
-                <ImageView
-                    android:id="@+id/scoreboard_pic"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_weight="10"
-                    android:layout_marginTop="20dp"
-                    android:scaleType="centerInside"
-                    android:text="123"/>
-
-
             <TextView
                 android:id="@+id/scoreboard_name"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="50"
+                android:layout_weight="60"
                 android:background="@drawable/text_view_frame"
                 android:fontFamily="@font/f1regular"
                 android:gravity="center"

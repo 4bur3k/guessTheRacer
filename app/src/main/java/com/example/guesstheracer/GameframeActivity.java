@@ -6,6 +6,8 @@ otherwise it doesn't work(Extracting completes too late) :(
 
 package com.example.guesstheracer;
 
+import static java.util.concurrent.TimeUnit.*;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -37,6 +39,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 public class GameframeActivity extends AppCompatActivity {
 
@@ -71,6 +74,7 @@ public class GameframeActivity extends AppCompatActivity {
 
         //initialising all Views
         imgView = findViewById(R.id.game_img);
+        scoresView = findViewById(R.id.final_scores);
         //scoresView = findViewById(R.id.scores);
         firstButton = findViewById(R.id.first_button);
         secondButton = findViewById(R.id.second_button);
@@ -106,7 +110,9 @@ public class GameframeActivity extends AppCompatActivity {
             @Override
             public void onAnimationEnd(Animation animation) {
                 Arrays.fill(rightAnswer, false);
-                updateGameContent(list);
+                if (currentElement != list.size()) {
+                    updateGameContent(list);
+                }
             }
 
             @Override
@@ -395,11 +401,13 @@ public class GameframeActivity extends AppCompatActivity {
         }
 
         Log.d(TAG, "Time: " + user.getTime_sec() + " Scores: " + scores);
-        setImage("start_flag");
+        setImage("finish_flag");
         firstButton.setText("");
         secondButton.setText("");
         thirdButton.setText("");
         fourthButton.setText("");
+        scoresView.setText("" + scores + " Scores");
+
     }
 
 }
