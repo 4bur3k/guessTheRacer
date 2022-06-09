@@ -1,21 +1,38 @@
 package com.example.guesstheracer;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
 
 public class HomepageActivity extends AppCompatActivity {
 
+    String TAG = "HomepageActivity";
     //Buttons that start game
     Button f1Button, nascarButton, motogpButton;
+    ImageButton profilePicButton;
+    DatabaseReference mDatabase;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homepage);
+
+        mDatabase = FirebaseDatabase.getInstance("https://guess-the-racer-default-rtdb.europe-west1.firebasedatabase.app").getReference();
 
         f1Button = (Button) findViewById(R.id.f1_button);
         f1Button.setOnClickListener(new View.OnClickListener() {
@@ -52,4 +69,19 @@ public class HomepageActivity extends AppCompatActivity {
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
-}
+
+    /*private void getDataFromFirebase(String pack) {
+
+        mDatabase.child(pack).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (task.isSuccessful()) {
+                    res = (HashMap<String, String>) task.getResult().getValue();
+                    Log.d(TAG, "Successful get:" + res);
+
+                } else {
+                    Log.e(TAG, "Error getting data", task.getException());
+                }
+            }
+        });*/
+    }

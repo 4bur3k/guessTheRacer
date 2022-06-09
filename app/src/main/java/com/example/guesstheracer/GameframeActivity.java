@@ -194,7 +194,7 @@ public class GameframeActivity extends AppCompatActivity {
     //work in second Thread
     private void getDataFromFirebase(String pack) {
 
-        mDatabase.child(pack).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        mDatabase.child("game_packages").child(pack).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (task.isSuccessful()) {
@@ -337,7 +337,6 @@ public class GameframeActivity extends AppCompatActivity {
         secondButton.setText("");
         thirdButton.setText("");
         fourthButton.setText("");
-        //scoresView.setText(scores);
     }
 }
 
