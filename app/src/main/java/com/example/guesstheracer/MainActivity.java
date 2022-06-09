@@ -125,7 +125,8 @@ public class MainActivity extends AppCompatActivity {
                                         //I'm keeping current user as a global variable to not upload data from data base
                                         MyApplication mApp = com.example.guesstheracer.MyApplication.getInstance();
                                         mApp.setUser(user);
-                                        Log.d(TAG, "User saved in RAM: " + userData);
+                                        user = mApp.getUser();
+                                        Log.d(TAG, "User saved in RAM: " + user.getName() + " " + user.getTime_min() + " " +  user.getScores());
                                     } else {
                                         Log.e(TAG, "Error getting data", task.getException());
                                     }

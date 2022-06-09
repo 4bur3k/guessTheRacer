@@ -120,7 +120,7 @@ public class GameframeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //Checking that it's not last element
-                if (currentElement != list.size()) {
+           if (currentElement != list.size()) {
                     if (rightAnswer[0]) {
                         Arrays.fill(rightAnswer, false);
                         scores++;
@@ -131,15 +131,16 @@ public class GameframeActivity extends AppCompatActivity {
                     }
 
                 } else {
-                    if (rightAnswer[0]) {
-                        Arrays.fill(rightAnswer, false);
-                        scores++;
+                   if (rightAnswer[0]) {
+                       Arrays.fill(rightAnswer, false);
+                       scores++;
 
-                    } else {
-                        firstButton.startAnimation(wrongAnswerAnim);
-                    }
-                    updateGameContentEnd();
-                }
+                   } else {
+                       firstButton.startAnimation(wrongAnswerAnim);
+                   }
+                   firstButton.setEnabled(false);
+                   updateGameContentEnd();
+               }
             }
         });
 
@@ -164,6 +165,7 @@ public class GameframeActivity extends AppCompatActivity {
                     } else {
                         firstButton.startAnimation(wrongAnswerAnim);
                     }
+                    secondButton.setEnabled(false);
                     updateGameContentEnd();
                 }
             }
@@ -190,6 +192,7 @@ public class GameframeActivity extends AppCompatActivity {
                     } else {
                         firstButton.startAnimation(wrongAnswerAnim);
                     }
+                    thirdButton.setEnabled(false);
                     updateGameContentEnd();}
             }
         });
@@ -213,8 +216,9 @@ public class GameframeActivity extends AppCompatActivity {
                         scores++;
 
                     } else {
-                        firstButton.startAnimation(wrongAnswerAnim);
+                        fourthButton.startAnimation(wrongAnswerAnim);
                     }
+                    fourthButton.setEnabled(false);
                     updateGameContentEnd();}
             }
         });
@@ -374,16 +378,21 @@ public class GameframeActivity extends AppCompatActivity {
         //i'm keeping current user as a global variable to not upload data from data base
         MyApplication mApp = com.example.guesstheracer.MyApplication.getInstance();
         user = mApp.getUser();
-        user.setTime_ms(SystemClock.elapsedRealtime()  - startTime);
-        user.setScores(scores);
-        mApp.setUser(user);
+        long time = SystemClock.elapsedRealtime()  - startTime;
 
-        //Preparing Map<String, Object> contains way to "users"
-        // and Map with user data(user.toMap())
-        Map<String, Object> childUpdate = new HashMap<>();
-        childUpdate.put("/users/" + user.getUserID(), user.toMap());
 
-        mDatabase.updateChildren(childUpdate);
+        if(( float)scores / time > (float) user.getScores() / user.getTime_ms()) {
+            user.setScores(scores);
+            user.setTime_ms(SystemClock.elapsedRealtime()  - startTime);
+            mApp.setUser(user);
+
+            //Preparing Map<String, Object> contains way to "users"
+            // and Map with user data(user.toMap())
+            Map<String, Object> childUpdate = new HashMap<>();
+            childUpdate.put("/users/" + user.getUserID(), user.toMap());
+
+            mDatabase.updateChildren(childUpdate);
+        }
 
         Log.d(TAG, "Time: " + user.getTime_sec() + " Scores: " + scores);
         setImage("start_flag");

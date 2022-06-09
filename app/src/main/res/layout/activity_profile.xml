@@ -9,96 +9,103 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/black"
         android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:gravity="center"
-            android:textColor="@color/white"
-            android:textSize="28sp"
             android:fontFamily="@font/f1regular"
-            android:text="@string/profile"/>
+            android:gravity="center"
+            android:text="@string/profile"
+            android:textColor="@color/white"
+            android:textSize="28sp" />
 
         <ImageView
+            android:id="@+id/user_pic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/round_button_registration"/>
+            android:layout_marginTop="20dp"
+            android:background="@drawable/round_button_registration" />
 
         <TextView
+            android:id="@+id/main_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/f1regular"
             android:gravity="center"
-            android:layout_marginTop="10dp"
             android:textColor="@color/white"
             android:textSize="24sp"
-            android:fontFamily="@font/f1regular"
-            android:text="Denis Kuznetsov"/>
+            android:text="123"/>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_height="62dp"
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:id="@+id/scoreboard_position"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="10"
                 android:background="@drawable/text_view_frame"
+                android:fontFamily="@font/f1regular"
                 android:gravity="center"
                 android:textColor="@color/black"
                 android:textSize="14sp"
-                android:fontFamily="@font/f1regular"
-                android:text="1"/>
+                android:text="123"/>
+
+
+                <ImageView
+                    android:id="@+id/scoreboard_pic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="10"
+                    android:layout_marginTop="20dp"
+                    android:scaleType="centerInside"
+                    android:text="123"/>
+
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="10"
+                android:id="@+id/scoreboard_name"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="50"
                 android:background="@drawable/text_view_frame"
+                android:fontFamily="@font/f1regular"
                 android:gravity="center"
                 android:textColor="@color/black"
                 android:textSize="14sp"
-                android:fontFamily="@font/f1regular"
-                android:text="1"/>
+                android:text="123"/>
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="60"
+                android:id="@+id/scoreboard_scores"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="15"
                 android:background="@drawable/text_view_frame"
+                android:fontFamily="@font/f1regular"
                 android:gravity="center"
                 android:textColor="@color/black"
                 android:textSize="14sp"
-                android:fontFamily="@font/f1regular"
-                android:text="Denis Kuznetsov"/>
+                android:text="123"/>
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="20"
+                android:id="@+id/scoreboard_time"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="15"
                 android:background="@drawable/text_view_frame"
+                android:fontFamily="@font/f1regular"
                 android:gravity="center"
                 android:textColor="@color/black"
                 android:textSize="14sp"
-                android:fontFamily="@font/f1regular"
-                android:text="1"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="20"
-                android:background="@drawable/text_view_frame"
-                android:gravity="center"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:fontFamily="@font/f1regular"
-                android:text="1"/>
+                android:text="123"/>
 
         </LinearLayout>
     </LinearLayout>

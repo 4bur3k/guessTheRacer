@@ -24,7 +24,7 @@ public class HomepageActivity extends AppCompatActivity {
     String TAG = "HomepageActivity";
     //Buttons that start game
     Button f1Button, nascarButton, motogpButton;
-    ImageButton profilePicButton;
+    Button profilePicButton;
     DatabaseReference mDatabase;
 
 
@@ -62,14 +62,13 @@ public class HomepageActivity extends AppCompatActivity {
             }
         });
 
-        profilePicButton = findViewById(R.id.upload_profile_img);
-        profilePicButton.setOnTouchListener(new View.OnTouchListener() {
+        profilePicButton = findViewById(R.id.profile_button);
+        profilePicButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
+            public void onClick(View view) {
                 Intent intent = new Intent(HomepageActivity.this, ProfileActivity.class);
                 startActivity(intent);
 
-                return false;
             }
         });
     }

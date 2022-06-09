@@ -28,14 +28,20 @@ public class User {
     }
 
     public long getTime_ms() {
-        return time;
+        return time * 1000L;
     }
     public int getTime_sec() {
         return time;
     }
+    public String getTime_min(){return ("" + ((int)time / 60) + "." + time);}
+
 
     public int getScores() {
         return scores;
+    }
+
+    public String getScoresString() {
+        return "" + scores;
     }
 
     public void setName(String name) {
