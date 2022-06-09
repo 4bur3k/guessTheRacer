@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -40,6 +41,7 @@ import java.util.Random;
 public class GameframeActivity extends AppCompatActivity {
 
     String TAG = "GameFrameActivity";
+    Bundle argument;
     DatabaseReference mDatabase;
     ImageView imgView;
     TextView scoresView;
@@ -71,16 +73,17 @@ public class GameframeActivity extends AppCompatActivity {
         thirdButton = findViewById(R.id.third_button);
         fourthButton = findViewById(R.id.fourth_button);
 
+        //intent to get package name
+        argument = getIntent().getExtras();
+
         //getting data from Firebase
-        getDataFromFirebase("f1");
+        getDataFromFirebase(argument.get("f1").toString());
 
         //Starting timer
         chronometer = findViewById(R.id.chronometer);
         long startTime = SystemClock.elapsedRealtime();
         chronometer.setBase(startTime);
         chronometer.start();
-
-        Log.d(TAG, "View created");
     }
 
     @Override
@@ -213,7 +216,6 @@ public class GameframeActivity extends AppCompatActivity {
         try {
             imgView.setImageDrawable(getDrawableFromAssets("f1/" + name + ".jpg"));
             imgView.setScaleType(ImageView.ScaleType.FIT_CENTER);
-            Log.d(TAG, "image was set:" + name);
         } catch (IOException e) {
             Log.e(TAG, e.getMessage());
         }
@@ -327,6 +329,7 @@ public class GameframeActivity extends AppCompatActivity {
         }
     }
 
+    //updating UI when game is over
     private void updateGameContentEnd() {
         chronometer.stop();
         setImage("start_flag");

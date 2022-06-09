@@ -21,7 +21,7 @@ public class HomepageActivity extends AppCompatActivity {
         f1Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startGame();
+                startGame("f1");
 
             }
         });
@@ -30,7 +30,7 @@ public class HomepageActivity extends AppCompatActivity {
         nascarButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startGame();
+                startGame("nascar");
 
             }
         });
@@ -39,14 +39,16 @@ public class HomepageActivity extends AppCompatActivity {
         motogpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startGame();
+                startGame("motogp");
 
             }
         });
     }
 
-    private void startGame(){
+    //Starts gameframe activity with package from argument
+    private void startGame(String packageName){
         Intent intent = new Intent(HomepageActivity.this, GameframeActivity.class);
+        intent.putExtra(packageName, packageName);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
