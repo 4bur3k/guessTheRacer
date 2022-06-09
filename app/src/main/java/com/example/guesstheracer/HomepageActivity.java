@@ -70,18 +70,5 @@ public class HomepageActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    /*private void getDataFromFirebase(String pack) {
 
-        mDatabase.child(pack).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (task.isSuccessful()) {
-                    res = (HashMap<String, String>) task.getResult().getValue();
-                    Log.d(TAG, "Successful get:" + res);
-
-                } else {
-                    Log.e(TAG, "Error getting data", task.getException());
-                }
-            }
-        });*/
-    }
+}

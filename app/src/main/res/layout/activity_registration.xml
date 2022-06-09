@@ -89,7 +89,7 @@
                 android:text="@string/password"
                 android:gravity="center"/>
 
-            <Button
+            <ImageButton
                 android:id="@+id/upload_profile_img"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

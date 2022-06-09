@@ -49,17 +49,20 @@ public class GameframeActivity extends AppCompatActivity {
     Chronometer chronometer;
     //It's a map contains list of racers [key:name, value: picture name]
     //why don't work if res is local variable(asking to make it final)?
-    Map<String, String> res = new HashMap<>();
+    Map<String, String> res;
     List<Map.Entry<String, String>> list;
     int currentElement = 0;
     boolean[] rightAnswer = {false, false, false, false};
     int scores = 0;
+    long startTime;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
+
+        res = new HashMap<>();
+
         setContentView(R.layout.activity_gameframe);
 
         //getting reference on Firebase database to extract data
@@ -81,7 +84,7 @@ public class GameframeActivity extends AppCompatActivity {
 
         //Starting timer
         chronometer = findViewById(R.id.chronometer);
-        long startTime = SystemClock.elapsedRealtime();
+        startTime = SystemClock.elapsedRealtime();
         chronometer.setBase(startTime);
         chronometer.start();
     }
@@ -332,6 +335,7 @@ public class GameframeActivity extends AppCompatActivity {
     //updating UI when game is over
     private void updateGameContentEnd() {
         chronometer.stop();
+        Log.d(TAG, "Time: " + (SystemClock.elapsedRealtime()  - startTime) / 1000 + " Scores: " + scores);
         setImage("start_flag");
         firstButton.setText("");
         secondButton.setText("");
