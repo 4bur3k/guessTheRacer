@@ -83,7 +83,7 @@ public class RegistrationActivity extends AppCompatActivity {
                             MyApplication mApp = com.example.guesstheracer.MyApplication.getInstance();
                             mApp.setUser(user);
 
-                            addUserToDataBase(user, mDatabase);
+                            addUserToDataBase(user);
 
                             Intent intent = new Intent(RegistrationActivity.this, HomepageActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
