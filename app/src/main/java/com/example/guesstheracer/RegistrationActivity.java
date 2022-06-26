@@ -95,7 +95,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 });
     }
 
-    private void addUserToDataBase(User user, DatabaseReference _mDatabase){
+    private void addUserToDataBase(User user){
         Log.d(TAG, "UID: " + user.getUserID());
         mDatabase.child("users").child(user.getUserID()).setValue(user.toMap());
     }
