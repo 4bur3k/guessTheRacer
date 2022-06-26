@@ -387,7 +387,7 @@ public class GameframeActivity extends AppCompatActivity {
         long time = SystemClock.elapsedRealtime()  - startTime;
 
 
-        if(( float)scores / time > (float) user.getScores() / user.getTime_ms()) {
+        if(((float)scores / time > (float) user.getScores() / user.getTime_ms()) || user.getScores() == 0 || user.getTime_sec() == 0)  {
             user.setScores(scores);
             user.setTime_ms(SystemClock.elapsedRealtime()  - startTime);
             mApp.setUser(user);
